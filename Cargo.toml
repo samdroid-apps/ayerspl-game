@@ -1,0 +1,10 @@
+[package]
+name = "ayerspl-game"
+version = "0.1.0"
+authors = ["Sam Parkinson <sam@sam.today>"]
+
+[dependencies]
+three = "0.3.1"
+mint = "0.5.0"
+# cgmath = "0.15.0"
+rand = "0.5.5"
