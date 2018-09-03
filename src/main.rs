@@ -6,9 +6,11 @@ use three::Object;
 use three::controls::Key;
 use rand::prelude::*;
 
+mod color;
+
+
 const CAMERA_MOVEMENT_SPEED: f32 = 5.;
 const ROAD_LEVEL_Z: f32 = 0.;
-
 
 fn new_building<R: rand::Rng>(
     factory: &mut three::Factory,
@@ -17,13 +19,12 @@ fn new_building<R: rand::Rng>(
     y_width: f32) -> three::Mesh {
 
     let stories = rng.gen_range(1, 9);
-    let color: u32 = rng.gen_range(0x000000, 0xFFFFFF+1);
 
     let height = (stories as f32) * 1.0;
     let geometry = three::Geometry::cuboid(x_width, y_width, height);
-    let material = three::material::Lambert {
-        color: color as three::color::Color,
-        flat: false,
+    let material = three::material::Basic {
+        color: color::get_building_color(rng),
+        map: None,
     };
     let mesh = factory.mesh(geometry, material);
     mesh
