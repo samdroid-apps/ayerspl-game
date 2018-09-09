@@ -22,3 +22,7 @@ pub fn get_building_color<R: rand::Rng>(rng: &mut R) -> three::color::Color {
     let b = pixel[2] as u32;
     (r<<4) + (g<<2) + b
 }
+
+pub fn get_road_lane_color() -> three::color::Color {
+    0x888888
+}

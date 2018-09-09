@@ -7,10 +7,10 @@ use three::controls::Key;
 use rand::prelude::*;
 
 mod color;
+mod roadlane;
 
 
 const CAMERA_MOVEMENT_SPEED: f32 = 5.;
-const ROAD_LEVEL_Z: f32 = 0.;
 
 fn new_building<R: rand::Rng>(
     factory: &mut three::Factory,
@@ -29,7 +29,6 @@ fn new_building<R: rand::Rng>(
     let mesh = factory.mesh(geometry, material);
     mesh
 }
-
 
 
 fn main() {
@@ -53,9 +52,10 @@ fn main() {
         flat: false,
     };
     let ground_mesh = win.factory.mesh(ground_geometry, ground_material);
-    ground_mesh.set_position([0., 0., ROAD_LEVEL_Z-0.0001]);
+    ground_mesh.set_position([0., 0., roadlane::ROAD_LEVEL_Z-0.0001]);
 	win.scene.add(&ground_mesh);
 
+    /*
     for x in -5..6 {
         for y in -5..6 {
             let bld = new_building(&mut win.factory, &mut rng, 2.0, 2.0);
@@ -63,6 +63,12 @@ fn main() {
             win.scene.add(&bld);
         }
     }
+    */
+
+    let lane = roadlane::Lane::new([0., 0.].into(), [1., 2.].into());
+    let road_object = lane.get_object(&mut win.factory);
+    win.scene.add(&road_object);
+
 
     win.scene.background = three::Background::Color(0xC6F0FF);
 
